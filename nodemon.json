@@ -1,0 +1,13 @@
+{
+    "env":{
+        "SQL_USER": "root" ,
+        "SQL_PASSWORD": "" ,
+        "SQL_DATABASE": "keryar" ,
+        "SQL_SERVER": "localhost" ,
+        "SQL_ENCRYPT": "false" 
+    }
+}
+
+
+
+
