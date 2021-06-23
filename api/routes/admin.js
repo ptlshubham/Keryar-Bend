@@ -20,9 +20,19 @@ router.get("/GetClientList",(req,res,next)=>{
     });
 });
 
+router.post("/UpdateClientsDetails", (req, res, next) => {
+    console.log(req.body);
+    db.executeSql("UPDATE `keryar`.`users` SET name='" + req.body.name + "', role="+req.body.selectedRoleId+" WHERE uid=" + req.body.uid + ";", function (data, err) {
+        if (err) {
+            console.log("Error in store.js", err);
+        } else {
+            return res.json(data);
+        }
+    });
+});
 
 router.get("/DeleteClient/:uid",(req,res,next)=>{
-    db.executeSql("delete   FROM users where uid ="+req.params.uid  , function(data , err){
+    db.executeSql("delete FROM users where uid ="+req.params.uid  , function(data , err){
         if(err){
             console.log("Error in store.js" ,err);
         }
@@ -56,10 +66,9 @@ router.post("/AddNewClient",(req,res,next)=>{
         }
     });
 });
-                
-
-
+      
 router.post("/GetMessage",(req,res,next)=>{
+    console.log(req.body);
     if(req.body.sender ==1){
         db.executeSql("select c.id , c.sender ,c.receiver,c.receiver2,c.message,c.createddate,r.name as sendername ,r.name as receivername from chat c left join users r on c.sender = r.uid where c.sender="+req.body.receiver+" OR c.receiver="+req.body.receiver+" ORDER BY createddate " , function(data , err){
             if(err){
